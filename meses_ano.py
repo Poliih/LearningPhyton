@@ -1,6 +1,5 @@
 
 month = input()
-
 def months_dict(month):
     month = int(month)
     if month == 1:
