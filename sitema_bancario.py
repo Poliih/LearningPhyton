@@ -19,35 +19,44 @@ while True:
     if opcao == "d":
         deposito = float(input("Valor do depósito: "))
         if deposito > 0:
-            saldo += deposito
+            saldo = saldo + deposito
             extrato.append(f"Depósito: +R$ {deposito:.2f}")
         else:
-            print("Não é possível depositar esse valor")
+            print("Valor inválido. O depósito deve ser maior que zero.")
 
     elif opcao == "s":
         saque = float(input("Valor do saque: "))
-        if numero_saques < LIMITE_SAQUES and saque <= 500:
-            if saque <= saldo:
+        if saque > 0:
+            if numero_saques < LIMITE_SAQUES and saque <= saldo:
                 saldo = saldo - saque
                 extrato.append(f"Saque: -R$ {saque:.2f}")
                 numero_saques += 1
-            else:
-                print("Você não possui saldo suficiente.")
-        else:
-            if numero_saques >= LIMITE_SAQUES:
+            elif numero_saques >= LIMITE_SAQUES:
                 print("Você excedeu o limite de saques no dia.")
             else:
-                print("Você não pode sacar mais de R$ 500,00 por vez")
+                print("Você não possui saldo suficiente para esse saque.")
+        else:
+            print("Valor inválido. O saque deve ser maior que zero.")
+
 
     elif opcao == "e":
-        print("\nExtrato:")
-        for item in extrato:
-            print(item)
-        print("Saldo Atual: R$ {:.2f}\n".format(saldo))
+
+        if not extrato:
+
+            print("Nenhuma movimentação registrada no extrato.")
+            print("Saldo Atual: R$ {:.2f}\n".format(saldo))
+
+        else:
+
+            print("\nExtrato:")
+
+            for item in extrato:
+                print(item)
+
+            print("Saldo Atual: R$ {:.2f}\n".format(saldo))
 
     elif opcao == "q":
         break
 
     else:
         print("Operação inválida, por favor selecione novamente a operação desejada.")
-
